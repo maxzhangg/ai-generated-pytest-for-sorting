@@ -21,6 +21,13 @@ The sorting algorithms in `sorting_algorithms/` are sourced directly from the or
 
 All implementations are clean, educational, and ideal for practicing algorithm understanding.
 
+## ⚠️ Code Fix Notice
+
+The original sorting implementations contained a few bugs (e.g., float indexing, incorrect list assignments) that have been fixed to make them compatible with modern Python and Pytest testing.  
+👉 You can view the exact changes in this diff file:  
+[📄 sorting_algorithms/diff.txt](https://github.com/maxzhangg/ai-generated-pytest-for-sorting/blob/master/sorting_algorithms/diff.txt)
+
+
 ## ✅ What This Project Adds
 
 - ✔️ AI-generated Pytest test cases for **each algorithm**
