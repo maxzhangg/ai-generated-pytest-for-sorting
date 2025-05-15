@@ -1,0 +1,367 @@
+diff --git a/mergesort.py b/mergesort.py
+index c471336..9c872d5 100644
+--- a/mergesort.py
++++ b/mergesort.py
+@@ -11,7 +11,7 @@ pior caso - O(n log(n))
+ 
+ def merge_sort(obj):
+     if len(obj) > 1:
+-        mid = len(obj)/2
++        mid = len(obj)//2
+         left = obj[:mid]
+         right = obj[mid:]
+ 
+diff --git a/quicksort.py b/quicksort.py
+index 5ad0cb0..80d55c8 100644
+--- a/quicksort.py
++++ b/quicksort.py
+@@ -27,7 +27,7 @@ def partition(lista, esq, dir, pivot):
+ def quick_sort(lista, esq, dir):
+     if(esq >= dir):
+         return
+-    pivot = lista[ (esq + dir) / 2]
++    pivot = lista[ (esq + dir) // 2]
+     index = partition(lista, esq, dir, pivot)
+     quick_sort(lista, esq, index-1)
+     quick_sort(lista, index, dir)
+diff --git a/radix_sort.py b/radix_sort.py
+index 9888a89..856a38d 100644
+--- a/radix_sort.py
++++ b/radix_sort.py
+@@ -4,17 +4,17 @@
+ # the digit represented by exp. 
+ def countingSort(arr, exp1): 
+ 
+-	n = len(arr) 
++	n = len(arr)
+ 
+ 	# The output array elements that will have sorted arr 
+-	output = [0] * (n) 
++	output = [0] * (n)
+ 
+ 	# initialize count array as 0 
+-	count = [0] * (10) 
++	count = [0] * (10)
+ 
+ 	# Store count of occurrences in count[] 
+-	for i in range(0, n): 
+-		index = (arr[i]/exp1) 
++	for i in range(0, n):
++		index = (arr[i]//exp1)
+ 		count[ (index)%10 ] += 1
+ 
+ 	# Change count[i] so that count[i] now contains actual 
+@@ -25,7 +25,7 @@ def countingSort(arr, exp1):
+ 	# Build the output array 
+ 	i = n-1
+ 	while i>=0: 
+-		index = (arr[i]/exp1) 
++		index = (arr[i]//exp1) 
+ 		output[ count[ (index)%10 ] - 1] = arr[i] 
+ 		count[ (index)%10 ] -= 1
+ 		i -= 1
+@@ -38,19 +38,20 @@ def countingSort(arr, exp1):
+ 
+ # Method to do Radix Sort 
+ def radixSort(arr): 
++    if not arr:
++        return  # empty array check
+ 
+-	# Find the maximum number to know number of digits 
+-	max1 = max(arr) 
++    # Find the maximum number to know number of digits
++    max1 = max(arr)
+ 
+ 	# Do counting sort for every digit. Note that instead 
+ 	# of passing digit number, exp is passed. exp is 10^i 
+ 	# where i is current digit number 
+-	exp = 1
+-	while max1/exp > 0: 
+-		countingSort(arr,exp) 
+-		exp *= 10
+-  
+-  
++    exp = 1
++    while max1 // exp > 0:
++        countingSort(arr, exp)
++        exp *= 10
++
+ if __name__ == "__main__":
+ 	# Driver code to test above 
+ 	arr = [ 170, 45, 75, 90, 802, 24, 2, 66] 
+diff --git a/tests.py b/tests.py
+deleted file mode 100644
+index a37eaa0..0000000
+--- a/tests.py
++++ /dev/null
+@@ -1,214 +0,0 @@
+-#!/bin/bash/env python
+-# coding=UTF-8
+-# by Tarcisio marinho
+-# github.com/tarcisio-marinho
+-import random
+-import time
+-from quicksort import quick_sort
+-from selectionsort import selection_sort
+-from insertionsort import insertion_sort
+-from mergesort import merge_sort
+-from bubblesort import bubble_sort
+-from timsort import tim_sort
+-
+-
+-def quicksort_piorcaso():
+-    def teste1():
+-        lista =[]
+-
+-        for i in range(400000):
+-            lista.append(i)
+-        
+-        tempo = time.time()
+-        quick_sort(lista, 0, len(lista) - 1)
+-        fim = time.time()
+-        print("[TESTE] 400000 (400 mil) inteiros\n[TEMPO] "+ str(fim - tempo))
+-        print("\n")
+-
+-    def teste2():
+-        lista = []
+-
+-        for i in range(4000000):
+-            lista.append(i)
+-
+-        tempo = time.time()
+-        quick_sort(lista, 0, len(lista)-1)
+-        fim = time.time()
+-        print("[TESTE] 4000000 (4 milhoes) inteiros\n[TEMPO] "+ str(fim - tempo))
+-        print("\n")
+-
+-    def teste3():
+-        lista = []
+-
+-        for i in range(40000000):
+-            lista.append(i)
+-
+-        tempo = time.time()
+-        quick_sort(lista, 0, len(lista)-1)
+-        fim = time.time()
+-        print("[TESTE] 400000000 (40 milhoes) inteiros\n[TEMPO] "+ str(fim - tempo))
+-        print("\n")
+-
+-    print("Testando o pior caso do quicksort - O(n^2) - [Lista já ordenada]\n")
+-    teste1()
+-    teste2()
+-    teste3()
+-    print("Fim dos testes")
+-
+-def quicksort_average():
+-    def teste1():
+-        lista = []
+-
+-        for i in range(40000):
+-            aleatorio = random.randint(0, 40000)
+-            lista.append(aleatorio)
+-
+-        tempo = time.time()
+-        quick_sort(lista, 0, len(lista) - 1)
+-        fim = time.time()
+-        print("[TESTE] 40000 (40 mil) inteiros\n[TEMPO] "+ str(fim - tempo))
+-        print("\n")
+-
+-    def teste2():
+-        lista = []
+-
+-        for i in range(400000):
+-            aleatorio = random.randint(0, 400000)
+-            lista.append(aleatorio)
+-
+-        tempo = time.time()
+-        quick_sort(lista, 0, len(lista) - 1)
+-        fim = time.time()
+-        print("[TESTE] 400000 (400 mil) inteiros\n[TEMPO] "+ str(fim - tempo))
+-        print("\n")
+-    
+-    def teste3():
+-        lista = []
+-
+-        for i in range(4000000):
+-            aleatorio = random.randint(0, 4000000)
+-            lista.append(aleatorio)
+-
+-        tempo = time.time()
+-        quick_sort(lista, 0, len(lista) - 1)
+-        fim = time.time()
+-        print("[TESTE] 4000000 (4 milhoes) inteiros\n[TEMPO] "+ str(fim - tempo))
+-        print("\n")
+-
+-    def teste4():
+-        lista = []
+-
+-        for i in range(40000000):
+-            aleatorio = random.randint(0, 40000000)
+-            lista.append(aleatorio)
+-
+-        tempo = time.time()
+-        quick_sort(lista, 0, len(lista) - 1)
+-        fim = time.time()
+-        print("[TESTE] 40000000 (40 milhoes) inteiros\n[TEMPO] "+ str(fim - tempo))
+-        print("\n")
+-
+-    print("Teste com numeros aleatórios - caso geral - O(n log(n))\n")
+-    print("Teste1: \n")
+-    teste1()
+-    print("Teste2: \n")
+-    teste2()
+-    print("Teste3: \n")
+-    teste3()
+-    print("Teste4: \n")
+-    teste4()
+-    print("Fim dos testes")
+-
+-
+-
+-def quicksort_vs_bubble():
+-    lista = []
+-
+-    for i in range(40000):
+-        aleatorio = random.randint(0, 40000)
+-        lista.append(aleatorio)
+-
+-    tempo = time.time()
+-    quick_sort(lista, 0, len(lista) - 1)
+-    fim = time.time()
+-    print("[QUICKSORT] 40000 (40 mil) inteiros Aleatorios\n[TEMPO] "+ str(fim - tempo))
+-    
+-    lista = []
+-
+-    for i in range(40000):
+-        aleatorio = random.randint(0, 40000)
+-        lista.append(aleatorio)
+-
+-    tempo = time.time()
+-    bubble_sort(lista, len(lista))
+-    fim = time.time()
+-    print("[BUBBLESORT] 40000 (40 mil) inteiros Aleatorios\n[TEMPO] "+ str(fim - tempo))
+-    
+-    print("\n")
+-
+-
+-def quicksort_vs_mergesort():
+-    lista = []
+-
+-    for i in range(4000000):
+-        aleatorio = random.randint(0, 4000000)
+-        lista.append(aleatorio)
+-
+-    tempo = time.time()
+-    quick_sort(lista, 0, len(lista) - 1)
+-    fim = time.time()
+-    print("[QUICKSORT] 4000000 (4 milhoes) inteiros Aleatorios\n[TEMPO] "+ str(fim - tempo))
+-    
+-    lista = []
+-
+-    for i in range(4000000):
+-        aleatorio = random.randint(0, 4000000)
+-        lista.append(aleatorio)
+-
+-    tempo = time.time()
+-    merge_sort(lista)
+-    fim = time.time()
+-    print("[MERGESORT] 4000000 (4 milhoes) inteiros Aleatorios\n[TEMPO] "+ str(fim - tempo))
+-    print("\n")
+-
+-def quick_vs_selec_vs_insr():
+-    lista = []
+-
+-    for i in range(40000):
+-        aleatorio = random.randint(0, 40000)
+-        lista.append(aleatorio)
+-    
+-    tempo = time.time()
+-    quick_sort(lista, 0, len(lista) - 1)
+-    fim = time.time()
+-    print("[QUICKSORT] 40000 (40 mil) inteiros Aleatorios\n[TEMPO] "+ str(fim - tempo))
+-    
+-    lista = []
+-
+-    for i in range(40000):
+-        aleatorio = random.randint(0, 40000)
+-        lista.append(aleatorio)
+-    
+-    tempo = time.time()
+-    selection_sort(lista, len(lista))
+-    fim = time.time()
+-    print("[SELECTIONSORT] 40000 (40 mil) inteiros Aleatorios\n[TEMPO] "+ str(fim - tempo))
+-    
+-    lista = []
+-
+-    for i in range(40000):
+-        aleatorio = random.randint(0, 40000)
+-        lista.append(aleatorio)
+-
+-    tempo = time.time()
+-    insertion_sort(lista, len(lista))
+-    fim = time.time()
+-    print("[INSERTIONSORT] 40000 (40 mil) inteiros Aleatorios\n[TEMPO] "+ str(fim - tempo))
+-    print("\n")
+-
+-if __name__ == "__main__":
+-    quicksort_piorcaso()
+-    quicksort_average()
+-    quicksort_vs_bubble()
+-    quicksort_vs_mergesort()
+-    quick_vs_selec_vs_insr()
+\ No newline at end of file
+diff --git a/timsort.py b/timsort.py
+index aa5b117..30c0fb5 100644
+--- a/timsort.py
++++ b/timsort.py
+@@ -26,34 +26,31 @@ def insertion_sort(lista, esq, dir):
+ def merge(lista, l, m, r):
+     len1 = m - l + 1
+     len2 = r - m
+-    left = []
+-    right = []
+-    for i in range(len1 + 1):
+-        left[i] = lista[l + i]
+-    for i in range(len2 + 1):
+-        right[i] = lista[m + l + i]
+ 
+-    i = 0
+-    j = 0
++    left = [lista[l + i] for i in range(len1)]
++    right = [lista[m + 1 + i] for i in range(len2)]
++
++    i = j = 0
+     k = l
+-    while(i < len1 and j < len2):
+-        if(left[i] <= right[j]):
++
++    while i < len1 and j < len2:
++        if left[i] <= right[j]:
+             lista[k] = left[i]
+-            i+=1
++            i += 1
+         else:
+             lista[k] = right[j]
+-            j+=1
+-        k+=1
++            j += 1
++        k += 1
+ 
+-    while(i < len1):
++    while i < len1:
+         lista[k] = left[i]
+-        k+=1
+-        i+=1
++        i += 1
++        k += 1
+ 
+-    while(j < len2):
++    while j < len2:
+         lista[k] = right[j]
+-        k+=1
+-        j+=1
++        j += 1
++        k += 1
+ 
+ 
+ 
